@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI TEST</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.1/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <header class="w-full mx-auto text-center bg-lime-200 pt-6">
+        <h1 class="text-3xl font-semibold">TEST YOUR <span class="text-orange-500 font-bold">BMI</span></h1>
+    </header>
+    <main>
+        <section class="w-full p-4">
+            <div class="mx-auto max-w-md bg-white rounded-md p-4 shadow-md">
+                <h2 class="text-2xl text-center mb-2">Convert Height Foot To CM</h2>
+                <input type="number" id="height-f-to-cm" placeholder="Input Your Height"
+                    class="block w-full bg-gray-200 text-black border-orange-500 py-2 px-1 mb-2">
+                <button id="convart-btn" class="btn btn-success bg-green-500 btn-lg my-2 w-full">Convert</button>
+                <h1 class="text-lg">Your Height is convart to CM=> <span id="area-of-height" class="text-green-500 text-center text-xl"></span></h1>
+                
+            </div>
+        </section>
+        <section class="w-full p-4">
+            <div class="mx-auto max-w-md bg-white rounded-md p-4 shadow-md">
+                <label for="" class="text-xl">Your Height: </label><input type="number" id="height"
+                    class="block w-full bg-gray-200 text-black border-orange-500 py-2 px-1 mb-2"
+                    placeholder="Your Height CM">
+                <label for="" class="text-xl">Your Weight: </label><input type="text" id="weight"
+                    class="block w-full bg-gray-200 text-black border-orange-500 py-2 px-1 mb-2"
+                    placeholder="Your weight">
+                <button id="calculet-btn" class="btn btn-success bg-green-500 btn-lg my-2 w-full">Calculate</button>
+                <h1 class="text-lg ">Your BMI is=> <span id="area" class="text-purple-600 text-center text-xl"></span></h1>
+            </div>
+        </section>
+        <section class="w-full mx-auto text-center bg-lime-100 py-4 px-12">
+            <div class="font-medium text-2xl mb-4">
+                <h1>Under Weight = Less Than 18.6</h1>
+                <h1>Normal Range = 18.5 and 24.9</h1>
+                <h1>OverWeight = Greater Than 24.9</h1>
+            </div>
+            <small class="text-gray-600">All rights reserved by @RkLoPaR</small>
+        </section>
+    </main>
+
+    <script>
+
+        document.getElementById('convart-btn').addEventListener('click', function(){
+            const heightToFootFiled =document.getElementById('height-f-to-cm');
+            const heightToFootText = heightToFootFiled.value;
+            const heightValue =parseFloat(heightToFootText);
+            console.log(heightValue)
+            if (isNaN(heightValue) ||  heightValue <= 0 ) {
+            document.getElementById("area-of-height").innerHTML = "Please enter valid height .";
+            return;
+        }
+            const sumOffFit = heightValue * 30.48 ;
+    
+            document.getElementById("area-of-height").innerHTML = ` ${sumOffFit.toFixed(2)}`;
+    
+    
+    
+    
+        })
+        // Function to calculate BMI
+    function calculateBMI() {
+        // Get user input for height in centimeters and weight in kilograms
+        const heightCm = parseFloat(document.getElementById("height").value);
+        const weightKg = parseFloat(document.getElementById("weight").value);
+    
+        // Check if input is valid
+        if (isNaN(heightCm) || isNaN(weightKg) || heightCm <= 0 || weightKg <= 0) {
+            document.getElementById("area").innerHTML = "Please enter valid height and weight.";
+            return;
+        }
+    
+        // Convert height from centimeters to meters
+        const heightM = heightCm / 100;
+    
+        // Calculate BMI
+        const bmi = weightKg / (heightM * heightM);
+    
+        // Display the BMI
+        document.getElementById("area").innerHTML = `Your BMI is: ${bmi.toFixed(2)}`;
+    
+        // Determine BMI category
+        if (bmi < 18.5) {
+            document.getElementById("area").innerHTML += "<br />খাওয়া দাওয়া ভালো করে কর !";
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            document.getElementById("area").innerHTML += "<br /> সব ঠিকি আছে একটু জিম কর !";
+        } else {
+            document.getElementById("area").innerHTML += "<br />আর কত বাপের হোটেলে খাবি ? একটু কম খাঁ ! <br />";
+        }
+    }
+    
+    // Event listener for the Calculate button
+    document.getElementById("calculet-btn").addEventListener("click", calculateBMI);
+    
+    </script>
+</body>
+
+</html>
